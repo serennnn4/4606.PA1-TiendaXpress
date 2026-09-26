@@ -73,4 +73,4 @@ Dividimos el desarrollo en los siguientes puntos:
 El modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK evitó desde el inicio los problemas que TiendaXpress tenía con la información dispersa: no se pudo insertar un correo repetido, ni un precio negativo, ni un pedido sin cliente real detrás. Al combinar las consultas del equipo (filtros y agrupación, JOIN multitabla, subconsultas) pudimos responder preguntas de negocio completas, como identificar clientes inactivos o productos con riesgo de quiebre de stock, algo que con las tablas sueltas y sin relación no hubiera sido posible.
 
 ## Video de Exposición:
-Video público de YouTube:
+Video público de YouTube: https://youtu.be/9Dw6sWFynow
