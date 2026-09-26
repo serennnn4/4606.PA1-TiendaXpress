@@ -63,7 +63,7 @@ Dividimos el desarrollo en los siguientes puntos:
  <img width="341" height="220" alt="image" src="https://github.com/user-attachments/assets/1595df6e-ec48-4866-b02c-e0dd02df1723" />
 
 * Datos de prueba insertados con INSERT INTO.
-  <img width="645" height="160" alt="image" src="https://github.com/user-attachments/assets/a0cc732e-53a2-41f4-9297-e214c5330972" />
+<img width="637" height="1031" alt="image" src="https://github.com/user-attachments/assets/8d0b5789-9a92-40f0-8dcc-8b97503b9ab8" />
 
 * Consulta multitabla con JOIN y CASE mostrando la prioridad de cada pedido.
 <img width="691" height="758" alt="image" src="https://github.com/user-attachments/assets/43e1362b-aa00-4452-a92c-5a0b5b5e23ee" />
