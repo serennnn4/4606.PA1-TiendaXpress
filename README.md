@@ -29,7 +29,8 @@ Dividimos el desarrollo en los siguientes puntos:
 <img width="619" height="103" alt="image" src="https://github.com/user-attachments/assets/483e869a-b66b-4352-bf55-d41704f1ce83" />
 
 * Programamos el modelo físico con PRIMARY KEY y FOREIGN KEY para las relaciones, UNIQUE para que no se repita el correo de un cliente, y CHECK para que el precio, el stock y la cantidad nunca sean negativos, y para limitar el estado de un pedido a una lista cerrada de valores.
-<img width="624" height="751" alt="image" src="https://github.com/user-attachments/assets/fdd7041a-8230-4994-b417-ba695abeb4c1" />
+<img width="341" height="220" alt="image" src="https://github.com/user-attachments/assets/1595df6e-ec48-4866-b02c-e0dd02df1723" />
+
 
 * Probamos las tablas con INSERT INTO usando datos de prueba, incluyendo un cliente sin ningún pedido asociado (Valeria Núñez), pensado a propósito para tener un caso real donde probar las consultas de clientes sin historial de compras.
 
