@@ -4,21 +4,21 @@
    Caso: TiendaXpress - gestión de clientes, productos y pedidos
    Motor: SQL Server | Autenticación de Windows | instancia local
    ============================================================ */
-
+ 
 -- 1. Crear la base de datos
 CREATE DATABASE PA1_TiendaXpress;
 GO
-
+ 
 USE PA1_TiendaXpress;
 GO
-
+ 
 -- 2. Limpieza de tablas (para poder re-ejecutar el script cuando se desee)
 IF OBJECT_ID('dbo.DetallePedido', 'U') IS NOT NULL DROP TABLE dbo.DetallePedido;
 IF OBJECT_ID('dbo.Pedidos', 'U') IS NOT NULL DROP TABLE dbo.Pedidos;
 IF OBJECT_ID('dbo.Productos', 'U') IS NOT NULL DROP TABLE dbo.Productos;
 IF OBJECT_ID('dbo.Clientes', 'U') IS NOT NULL DROP TABLE dbo.Clientes;
 GO
-
+ 
 -- 3. Tabla Clientes
 CREATE TABLE dbo.Clientes (
     ClienteID      INT IDENTITY(1,1) PRIMARY KEY,
@@ -30,7 +30,7 @@ CREATE TABLE dbo.Clientes (
     FechaRegistro  DATE         NOT NULL DEFAULT GETDATE()
 );
 GO
-
+ 
 -- 4. Tabla Productos
 CREATE TABLE dbo.Productos (
     ProductoID      INT IDENTITY(1,1) PRIMARY KEY,
@@ -41,7 +41,7 @@ CREATE TABLE dbo.Productos (
     FechaAlta       DATE          NOT NULL DEFAULT GETDATE()
 );
 GO
-
+ 
 -- 5. Tabla Pedidos (cabecera de la operación)
 CREATE TABLE dbo.Pedidos (
     PedidoID     INT IDENTITY(1,1) PRIMARY KEY,
@@ -53,7 +53,7 @@ CREATE TABLE dbo.Pedidos (
         REFERENCES dbo.Clientes(ClienteID)
 );
 GO
-
+ 
 -- 6. Tabla DetallePedido (detalle de la operación)
 CREATE TABLE dbo.DetallePedido (
     DetalleID       INT IDENTITY(1,1) PRIMARY KEY,
@@ -67,11 +67,11 @@ CREATE TABLE dbo.DetallePedido (
         REFERENCES dbo.Productos(ProductoID)
 );
 GO
-
+ 
 /* ============================================================
    INSERTS - datos válidos
    ============================================================ */
-
+ 
 -- Clientes
 -- Nota: Valeria Núñez se agregó a propósito sin ningún pedido asociado,
 -- para que las consultas de "clientes sin compras" (Actividad 3 y 4) tengan
@@ -87,7 +87,7 @@ INSERT INTO dbo.Clientes (Nombres, Apellidos, Correo, Telefono, Ciudad) VALUES
 ('Hugo',     'Castillo', 'hugo.castillo@mail.com',   '987888999', 'Arequipa'),
 ('Valeria',  'Núñez',    'valeria.nunez@mail.com',   '987999000', 'Piura');
 GO
-
+ 
 -- Productos
 INSERT INTO dbo.Productos (NombreProducto, Categoria, PrecioUnitario, Stock) VALUES
 ('Laptop 14"',           'Tecnología', 2899.90, 15),
@@ -101,7 +101,7 @@ INSERT INTO dbo.Productos (NombreProducto, Categoria, PrecioUnitario, Stock) VAL
 ('Audífonos bluetooth',  'Tecnología',  159.90, 70),
 ('Lámpara de escritorio','Hogar',        75.00, 40);
 GO
-
+ 
 -- Pedidos (Valeria, ClienteID 9, no aparece aquí a propósito)
 INSERT INTO dbo.Pedidos (ClienteID, Estado) VALUES
 (1, 'Entregado'),
@@ -117,7 +117,7 @@ INSERT INTO dbo.Pedidos (ClienteID, Estado) VALUES
 (3, 'En proceso'),
 (5, 'Pendiente');
 GO
-
+ 
 -- DetallePedido (el PrecioUnitario se copia del producto al momento de la venta)
 INSERT INTO dbo.DetallePedido (PedidoID, ProductoID, Cantidad, PrecioUnitario) VALUES
 (1, 1, 1, 2899.90),
@@ -141,188 +141,32 @@ INSERT INTO dbo.DetallePedido (PedidoID, ProductoID, Cantidad, PrecioUnitario) V
 (12, 8, 1, 120.00),
 (12, 10, 2, 75.00);
 GO
-
+ 
 -- Verificación rápida de que todo entró bien
 SELECT * FROM dbo.Clientes;
 SELECT * FROM dbo.Productos;
 SELECT * FROM dbo.Pedidos;
 SELECT * FROM dbo.DetallePedido;
 GO
-
+ 
 /* ============================================================
    VALIDACIÓN DE RESTRICCIONES
    ============================================================ */
-
+ 
 -- ── Prueba 1: romper UNIQUE (correo duplicado) ───────────────
 -- Ana Ramírez ya existe con este correo. Este INSERT debe fallar.
 INSERT INTO dbo.Clientes (Nombres, Apellidos, Correo, Ciudad)
 VALUES ('Ana', 'Duplicada', 'ana.ramirez@mail.com', 'Lima');
-
+ 
 -- ── Prueba 2: romper CHECK (precio negativo) ─────────────────
 INSERT INTO dbo.Productos (NombreProducto, Categoria, PrecioUnitario, Stock)
 VALUES ('Producto inválido', 'Tecnología', -50.00, 10);
-
+ 
 -- ── Prueba 3: romper FOREIGN KEY (cliente inexistente) ───────
 INSERT INTO dbo.Pedidos (ClienteID, Estado)
 VALUES (999, 'Pendiente');
-
+ 
 -- ── Prueba 4: romper CHECK de dominio (estado no permitido) ──
 INSERT INTO dbo.Pedidos (ClienteID, Estado)
 VALUES (1, 'Enviado a la luna');
-GO
-
-/* ============================================================
-   PA1 - Actividad 2: Consultas de selección, filtros y agrupación 
-   ============================================================ */
-
--- 1. Consulta: "¿Qué clientes son de Lima o de Arequipa?" 
-SELECT 
-    Nombres, 
-    Apellidos,
-    Correo,
-    Telefono,
-    UPPER(Ciudad) AS CiudadMayus
-FROM dbo.Clientes
-WHERE Ciudad IN ('Lima', 'Arequipa');
-GO
-
--- 2. Consulta: "¿Qué productos tienen riesgo de quiebre de stock?"
-SELECT
-     NombreProducto,
-     Categoria,
-     Stock
-FROM dbo.Productos
-WHERE Stock < 30
-ORDER BY Stock ASC;
-GO
-
--- 3. Consulta: "¿Qué productos acumulan 3 o más unidades compradas en total?"
-SELECT
-     ProductoID,
-     SUM(Cantidad) AS TotalUnidades
-FROM dbo.DetallePedido
-GROUP BY ProductoID
-HAVING SUM(Cantidad) >= 3
-ORDER BY TotalUnidades DESC;
-GO
-
--- 4. Consulta: "¿Qué productos tienen un precio entre 50 y 200 soles?"
-SELECT
-     NombreProducto,
-     PrecioUnitario 
-FROM dbo.Productos 
-WHERE PrecioUnitario BETWEEN 50 AND 200;
-GO
-
-/*==========================================================================================================
-Actividad 3: Consultas Multitabla
-===========================================================================================================*/
-
----     Requerimiento 1: Reporte operativo de ventas
----     1. INNER JOIN + CASE
-SELECT 
-    c.ClienteID,
-    CONCAT(c.Nombres,' ', c.Apellidos) AS NombreCliente,
-    p.PedidoID,
-    p.FechaPedido,
-    p.Estado,
-    CASE 
-        WHEN p.Estado = 'Pendiente' THEN 'Prioridad Alta - Procesar envío'
-        WHEN p.Estado = 'En proceso' THEN 'Prioridad Media - En empaque'
-        WHEN p.Estado = 'Entregado' THEN 'Prioridad Baja - Entregado'
-        WHEN p.Estado = 'Cancelado'  THEN 'Sin Prioridad - Anulado'
-        ELSE 'Estado no identificado'
-    END AS PrioridadLogistica
-FROM dbo.Clientes AS c
-INNER JOIN dbo.Pedidos AS p 
-    ON c.ClienteID = p.ClienteID;
-GO
-
----     Requerimiento 2: Análisis y segmentación de la cartera de clientes
----     2. LEFT OUTER JOIN + CASE + Creación de Tabla
-IF OBJECT_ID('dbo.ResumenCarteraClientes', 'U') IS NOT NULL
-    DROP TABLE dbo.ResumenCarteraClientes;
-
-SELECT 
-    c.ClienteID,
-    CONCAT(c.Nombres,' ', c.Apellidos) AS NombreCliente,
-    c.Correo,
-    COUNT(p.PedidoID) AS TotalPedidos,
-    CASE 
-        WHEN COUNT(p.PedidoID) >= 3 THEN 'Cliente Frecuente'
-        WHEN COUNT(p.PedidoID) BETWEEN 1 AND 2 THEN 'Cliente Casual'
-        ELSE 'Cliente Inactivo / Sin Compras'
-    END AS ClasificacionCliente
-INTO dbo.ResumenCarteraClientes
-FROM dbo.Clientes AS c
-LEFT JOIN dbo.Pedidos AS p 
-    ON c.ClienteID = p.ClienteID
-GROUP BY 
-    c.ClienteID, 
-    c.Nombres, 
-    c.Apellidos, 
-    c.Correo;
-
-SELECT * FROM dbo.ResumenCarteraClientes;
-GO
-
----     Requerimiento 3: Consolidado general de entidades y estados.
----     3. UNION ALL
-SELECT 
-    'Producto' AS TipoEntidad,
-    NombreProducto AS Descripcion,
-    CASE 
-        WHEN Stock = 0 THEN 'Agotado'
-        WHEN Stock < 10 THEN 'Stock Crítico'
-        ELSE 'Stock Disponible'
-    END AS EstadoAnalisis
-FROM dbo.Productos
-
-UNION ALL
-
-SELECT 
-    'Cliente' AS TipoEntidad,
-    CONCAT(Nombres,' ', Apellidos) AS Descripcion,
-    CASE 
-        WHEN ClienteID IN (SELECT DISTINCT ClienteID FROM dbo.Pedidos) THEN 'Con Historial'
-        ELSE 'Sin Historial'
-    END AS EstadoAnalisis
-FROM dbo.Clientes;
-GO
-
-/*==========================================================================================================
-Actividad 4: Subconsultas
-===========================================================================================================*/
-
--- 1. Subconsulta Escalar: ¿Qué productos superan el precio promedio de toda la tienda?
-SELECT 
-    NombreProducto, 
-    PrecioUnitario
-FROM dbo.Productos
-WHERE PrecioUnitario > (SELECT AVG(PrecioUnitario) FROM dbo.Productos)
-ORDER BY PrecioUnitario DESC;
--- Propósito: identificar productos "premium" sin fijar un precio a mano; el promedio se recalcula
--- solo con que cambien los precios de la tabla, la consulta no necesita tocarse.
--- Alternativa: se podría calcular el promedio aparte (una consulta suelta) y comparar el número
--- manualmente, pero eso obliga a actualizarlo cada vez que cambian los precios. La subconsulta
--- resuelve las dos cosas en una sola instrucción.
-GO
-
--- 2. Cláusula EXISTS vs NOT EXISTS: ¿qué clientes nunca hicieron un pedido?
-SELECT 
-    cl.ClienteID, 
-    cl.Nombres, 
-    cl.Apellidos,
-    cl.Correo
-FROM dbo.Clientes cl
-WHERE NOT EXISTS (
-    SELECT 1 
-    FROM dbo.Pedidos p 
-    WHERE p.ClienteID = cl.ClienteID
-);
--- Propósito: detectar clientes sin historial de compras, útil para una campaña de reactivación.
--- Alternativa: NOT IN (SELECT ClienteID FROM dbo.Pedidos) da el mismo resultado en la práctica,
--- pero si esa subconsulta llegara a traer un solo NULL, NOT IN deja de traer filas sin avisar.
--- NOT EXISTS no depende de comparar valores, solo verifica si existe o no una fila, así que no
--- tiene ese riesgo.
 GO
