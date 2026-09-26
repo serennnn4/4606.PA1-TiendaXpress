@@ -17,11 +17,10 @@
 
 
 ## Descripción: 
-Se diseñó el siguiente proyecto para la empresa "TiendaXpress", negocio del rubro retail que requiere administrar el cataláogo de productos, información de clientes y operaciones de ventas diarias. En la BBDD hemos resuelto la falta de integridad y centralización, además, estructuraremos la información dispersa aplicando reglas estrictas para evitar inconsisterncia en los datos (exe: datos duplicados. ) y permitir generar
-reportes logísticos y comerciales de forma automatizada.
+Se diseñó el siguiente proyecto para la empresa "TiendaXpress", negocio del rubro retail que requiere administrar el cataláogo de productos, información de clientes y operaciones de ventas diarias. En la BBDD hemos resuelto la falta de integridad y centralización, además, estructuraremos la información dispersa aplicando reglas estrictas para evitar inconsisterncia en los datos (exe: datos duplicados. ) y permitir generar reportes logísticos y comerciales de forma automatizada.
 
 ## Objetivo:
-Aplicar un modelo físico en SQL Server que mantenga la integridad de los datos y responda a los requerimientos a través de consultas simples, multitabla y de agrupación.
+Aplicar un modelo físico en SQL Server que mantenga la integridad de los datos y responda a los requerimientos de la organización a través de consultas simples, de agrupación, multitabla y con subconsultas.
 
 ## Desarrollo:
 Dividimos el desarrollo en los siguientes puntos:
@@ -51,10 +50,11 @@ Dividimos el desarrollo en los siguientes puntos:
 
 
 ## Indicaciones para ejecutar/revisar el proyecto:
-  * 1. Abrir el programa SQL Management Studio 22
-  * 2. Archivo > Abrir > Archivo > Seleccionar "______.sql"
-  * 3. Seleccionar
-  * 4.
+1. Abrir SQL Server Management Studio y conectarse a la instancia local con Autenticación de Windows.
+2. Ejecutar el script de la Actividad 1. Este crea la base de datos, las tablas con sus restricciones, inserta los datos de prueba y corre las 4 validaciones de restricciones al final (cada prueba se ejecuta por separado para ver su mensaje de error).
+3. Ejecutar el script de la Actividad 2, con las consultas de filtros, funciones y agrupación.
+4. Ejecutar el script de la Actividad 3, con las consultas de JOIN, CASE y UNION.
+5. Ejecutar el script de la Actividad 4, con las subconsultas y la consulta con EXISTS.
 
 
 ## Evidencias:
