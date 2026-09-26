@@ -26,24 +26,28 @@ Aplicar un modelo físico en SQL Server que mantenga la integridad de los datos 
 ## Desarrollo:
 Dividimos el desarrollo en los siguientes puntos:
 
-  * Definimos las entidades DetallePedido, Pedidos, Productos y Clientes.
+ * Definimos las entidades Clientes, Productos, Pedidos y DetallePedido, y sus relaciones.
 <img width="619" height="103" alt="image" src="https://github.com/user-attachments/assets/483e869a-b66b-4352-bf55-d41704f1ce83" />
 
-  * Programamos el modelo físico a través de "PRIMARY KEY", "FOREIGN KEY" y las reglas "UNIQUE" (para los correos) y "CHECK" (pecios + inventario en positivo).
+* Programamos el modelo físico con PRIMARY KEY y FOREIGN KEY para las relaciones, UNIQUE para que no se repita el correo de un cliente, y CHECK para que el precio, el stock y la cantidad nunca sean negativos, y para limitar el estado de un pedido a una lista cerrada de valores.
 <img width="624" height="751" alt="image" src="https://github.com/user-attachments/assets/fdd7041a-8230-4994-b417-ba695abeb4c1" />
 
-  * Probamos las entidades con INSERT INTO con datos de prueba (DML).
+* Probamos las tablas con INSERT INTO usando datos de prueba, incluyendo un cliente sin ningún pedido asociado (Valeria Núñez), pensado a propósito para tener un caso real donde probar las consultas de clientes sin historial de compras.
 <img width="563" height="311" alt="image" src="https://github.com/user-attachments/assets/fd85cf14-be9d-44ee-b6fb-7cf25e828346" />
 
-  *  Las sentencias SELECT usan filtros de fecha y texto. Con la condicional CASE etiquetamos el estado de pedidos y la unión JOIN para relacionar las ventas con el cliente.
-<img width="588" height="601" alt="image" src="https://github.com/user-attachments/assets/bf9dff72-0e77-4e55-bc0a-4f548ffa2fa1" />
-
-  *
+* A partir de esos datos, Nadia resolvió consultas con WHERE (IN, BETWEEN), funciones de cadena y agrupación con GROUP BY y HAVING para identificar, por ejemplo, qué productos están por debajo de las 30 unidades de stock.
+  
+* Luigi trabajó las consultas multitabla: un INNER JOIN para relacionar pedidos con sus clientes y clasificar su prioridad de despacho con CASE, un LEFT JOIN para incluir también a los clientes sin pedidos y clasificarlos como frecuentes, casuales o sin compras, y un UNION ALL para consolidar productos y clientes en un solo listado de auditoría.
+  
+* Jean Luc cerró con dos subconsultas: una escalar para identificar productos por encima del precio promedio, y una con NOT EXISTS para encontrar clientes sin ningún pedido registrado, que es justamente el caso que cubre Valeria.
 
 ## Solución Propuesta:
-* Al contar con una base de datos funcional, realizamos un scrip con las tablas creadas (objetos DDL) y DML (Inserciones).
-* Realizamos consultas para detectar productos con riesgo de desabastecimiento, osea que cuenten con stock menor a 30 unidades.
-* Unificamos los datos extraídos de múltiples tablas para poder elaborar el análisis. La bbdd se programó para que se conecte con el registro general de usuarios con el historial de ventas. Esto permite la categorización de la actividad de cada cliente ( Frecuentes, Inactivos, Casuales). Estas etiquetas permiten priorizar los pedidos.
+* Con la base de datos funcional, entregamos un script con los objetos DDL (tablas y restricciones) y las inserciones DML de prueba.
+* Resolvimos consultas para detectar productos con riesgo de desabastecimiento, es decir con stock menor a 30 unidades, y productos con más de 3 unidades vendidas en total.
+  
+* Unificamos datos de varias tablas para clasificar a los clientes según su historial de compras (frecuentes, casuales, inactivos) y priorizar pedidos según su estado.
+  
+* Comparamos alternativas para un mismo requerimiento, por ejemplo INNER JOIN frente a LEFT JOIN, y NOT EXISTS frente a NOT IN, explicando en el script por qué se eligió una sobre la otra.
 
 
 ## Indicaciones para ejecutar/revisar el proyecto:
@@ -54,7 +58,14 @@ Dividimos el desarrollo en los siguientes puntos:
 
 
 ## Evidencias:
+* Diagrama de entidades: Clientes, Productos, Pedidos y DetallePedido.
+* Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
+* Datos de prueba insertados con INSERT INTO.
+* Consulta multitabla con JOIN y CASE mostrando la prioridad de cada pedido.
+
 
 ## Conclusiones:
+El modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK evitó desde el inicio los problemas que TiendaXpress tenía con la información dispersa: no se pudo insertar un correo repetido, ni un precio negativo, ni un pedido sin cliente real detrás. Al combinar las consultas del equipo (filtros y agrupación, JOIN multitabla, subconsultas) pudimos responder preguntas de negocio completas, como identificar clientes inactivos o productos con riesgo de quiebre de stock, algo que con las tablas sueltas y sin relación no hubiera sido posible.
 
 ## Video de Exposición:
+Video público de YouTube:
