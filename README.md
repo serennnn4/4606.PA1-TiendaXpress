@@ -58,7 +58,7 @@ Dividimos el desarrollo en los siguientes puntos:
 
 ## Evidencias:
 * Diagrama de entidades: Clientes, Productos, Pedidos y DetallePedido.
-  <img width="2189" height="1276" alt="image" src="https://github.com/user-attachments/assets/0aeaefa4-c658-420e-a427-4c2d1cafa1f2" />
+<img width="1466" height="1075" alt="image" src="https://github.com/user-attachments/assets/b3e7556d-9745-4cb6-a50e-fb5fb75b3da4" />
 
 * Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
   <img width="387" height="418" alt="image" src="https://github.com/user-attachments/assets/3d56b669-fe03-4c34-8864-d85bd501bc0a" />
