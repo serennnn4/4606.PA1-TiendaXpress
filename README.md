@@ -32,7 +32,7 @@ Dividimos el desarrollo en los siguientes puntos:
 <img width="624" height="751" alt="image" src="https://github.com/user-attachments/assets/fdd7041a-8230-4994-b417-ba695abeb4c1" />
 
 * Probamos las tablas con INSERT INTO usando datos de prueba, incluyendo un cliente sin ningún pedido asociado (Valeria Núñez), pensado a propósito para tener un caso real donde probar las consultas de clientes sin historial de compras.
-<img width="563" height="311" alt="image" src="https://github.com/user-attachments/assets/fd85cf14-be9d-44ee-b6fb-7cf25e828346" />
+
 
 * A partir de esos datos, Nadia resolvió consultas con WHERE (IN, BETWEEN), funciones de cadena y agrupación con GROUP BY y HAVING para identificar, por ejemplo, qué productos están por debajo de las 30 unidades de stock.
   
@@ -59,6 +59,7 @@ Dividimos el desarrollo en los siguientes puntos:
 
 ## Evidencias:
 * Diagrama de entidades: Clientes, Productos, Pedidos y DetallePedido.
+  
 * Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
 * Datos de prueba insertados con INSERT INTO.
 * Consulta multitabla con JOIN y CASE mostrando la prioridad de cada pedido.
