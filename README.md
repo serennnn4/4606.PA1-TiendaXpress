@@ -33,7 +33,6 @@ Dividimos el desarrollo en los siguientes puntos:
 
 * Probamos las tablas con INSERT INTO usando datos de prueba, incluyendo un cliente sin ningún pedido asociado (Valeria Núñez), pensado a propósito para tener un caso real donde probar las consultas de clientes sin historial de compras.
 
-
 * A partir de esos datos, Nadia resolvió consultas con WHERE (IN, BETWEEN), funciones de cadena y agrupación con GROUP BY y HAVING para identificar, por ejemplo, qué productos están por debajo de las 30 unidades de stock.
   
 * Luigi trabajó las consultas multitabla: un INNER JOIN para relacionar pedidos con sus clientes y clasificar su prioridad de despacho con CASE, un LEFT JOIN para incluir también a los clientes sin pedidos y clasificarlos como frecuentes, casuales o sin compras, y un UNION ALL para consolidar productos y clientes en un solo listado de auditoría.
@@ -59,9 +58,12 @@ Dividimos el desarrollo en los siguientes puntos:
 
 ## Evidencias:
 * Diagrama de entidades: Clientes, Productos, Pedidos y DetallePedido.
-  
+  <img width="2189" height="1276" alt="image" src="https://github.com/user-attachments/assets/0aeaefa4-c658-420e-a427-4c2d1cafa1f2" />
+
 * Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
+  
 * Datos de prueba insertados con INSERT INTO.
+  
 * Consulta multitabla con JOIN y CASE mostrando la prioridad de cada pedido.
 
 
