@@ -29,8 +29,7 @@ Dividimos el desarrollo en los siguientes puntos:
 <img width="619" height="103" alt="image" src="https://github.com/user-attachments/assets/483e869a-b66b-4352-bf55-d41704f1ce83" />
 
 * Programamos el modelo físico con PRIMARY KEY y FOREIGN KEY para las relaciones, UNIQUE para que no se repita el correo de un cliente, y CHECK para que el precio, el stock y la cantidad nunca sean negativos, y para limitar el estado de un pedido a una lista cerrada de valores.
-<img width="341" height="220" alt="image" src="https://github.com/user-attachments/assets/1595df6e-ec48-4866-b02c-e0dd02df1723" />
-
+<img width="2189" height="1276" alt="image" src="https://github.com/user-attachments/assets/0aeaefa4-c658-420e-a427-4c2d1cafa1f2" />
 
 * Probamos las tablas con INSERT INTO usando datos de prueba, incluyendo un cliente sin ningún pedido asociado (Valeria Núñez), pensado a propósito para tener un caso real donde probar las consultas de clientes sin historial de compras.
 
@@ -62,7 +61,7 @@ Dividimos el desarrollo en los siguientes puntos:
 <img width="1466" height="1075" alt="image" src="https://github.com/user-attachments/assets/b3e7556d-9745-4cb6-a50e-fb5fb75b3da4" />
 
 * Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
-  <img width="387" height="418" alt="image" src="https://github.com/user-attachments/assets/3d56b669-fe03-4c34-8864-d85bd501bc0a" />
+ <img width="341" height="220" alt="image" src="https://github.com/user-attachments/assets/1595df6e-ec48-4866-b02c-e0dd02df1723" />
 
 * Datos de prueba insertados con INSERT INTO.
   <img width="645" height="160" alt="image" src="https://github.com/user-attachments/assets/a0cc732e-53a2-41f4-9297-e214c5330972" />
