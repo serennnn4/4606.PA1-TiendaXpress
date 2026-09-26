@@ -61,10 +61,13 @@ Dividimos el desarrollo en los siguientes puntos:
   <img width="2189" height="1276" alt="image" src="https://github.com/user-attachments/assets/0aeaefa4-c658-420e-a427-4c2d1cafa1f2" />
 
 * Modelo físico con PRIMARY KEY, FOREIGN KEY, UNIQUE y CHECK ya creado en SQL Server.
-  
+  <img width="387" height="418" alt="image" src="https://github.com/user-attachments/assets/3d56b669-fe03-4c34-8864-d85bd501bc0a" />
+
 * Datos de prueba insertados con INSERT INTO.
-  
+  <img width="645" height="160" alt="image" src="https://github.com/user-attachments/assets/a0cc732e-53a2-41f4-9297-e214c5330972" />
+
 * Consulta multitabla con JOIN y CASE mostrando la prioridad de cada pedido.
+<img width="691" height="758" alt="image" src="https://github.com/user-attachments/assets/43e1362b-aa00-4452-a92c-5a0b5b5e23ee" />
 
 
 ## Conclusiones:
